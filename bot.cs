@@ -1,5 +1,13 @@
 // Copy and Paste for Discord Bots
 
+using Discord;
+using Discord.Commands;
+using Discord.WebSocket;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
 internal class bot {
         private static CommandService _commands = new CommandService();
         private static IServiceProvider _services;
