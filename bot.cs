@@ -38,7 +38,6 @@ internal class bot
                 .BuildServiceProvider();
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
             d.MessageReceived += handler;
-            d.UserJoined += verificationBot;
         }
         private static async Task handler(SocketMessage arg)
         {
