@@ -5,6 +5,9 @@ internal class bot {
         private static IServiceProvider _services;
         public static DiscordSocketClient d;
         public static List<SocketMessage> collection = new List<SocketMessage>();
+        public static string token = "";
+        public static string activity = "";
+        public static string prefix = "";
         public static async Task start() {
             try {
                 DiscordSocketConfig config = new DiscordSocketConfig {
@@ -13,9 +16,9 @@ internal class bot {
                 };
                 d = new DiscordSocketClient(config);
                 await RegisterCommands();
-                await d.LoginAsync(TokenType.Bot, "", true);
+                await d.LoginAsync(TokenType.Bot, token, true);
                 await d.StartAsync();
-                await d.SetGameAsync("", null, ActivityType.Playing);
+                await d.SetGameAsync(activity, null, ActivityType.Playing);
                 await Task.Delay(-1);
             }
             catch (Exception e) {
@@ -39,7 +42,7 @@ internal class bot {
             var message = arg as SocketUserMessage;
             int argPos = 0;
             var context = new SocketCommandContext(d, message);
-            if (message.HasStringPrefix("$", ref argPos) || message.HasMentionPrefix(d.CurrentUser, ref argPos)) {
+            if (message.HasStringPrefix(prefix, ref argPos) || message.HasMentionPrefix(d.CurrentUser, ref argPos)) {
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
                 if (!result.IsSuccess && result.ErrorReason.ToLower() != "unknown command.")
                     Console.WriteLine(result.ErrorReason);
